@@ -15,6 +15,6 @@ Das war mein erstes Dokument das ich mit Latex geschrieben habe und möche ander
 
 Ich möchte darauf Hinweisen das der Quellcode nicht Perfekt ist und wohlmöglich einige unschöne Sachen enthält.
 
-Kompiliert mit Overleaf.
+Kompiliert und geschrieben in Overleaf.
 
 Viel Erfolg bei deiner Dokumentation.
