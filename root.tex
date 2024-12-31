@@ -1,0 +1,155 @@
+%Die Projektdokumentation sollte 12 bis 15 DIN A4-Seiten in üblicher Schriftgröße (z. B. Arial 10 bis 12) beinhalten.
+%Zeilenabstand: 1,0 bis maximal 1,5 Zeilen
+%Deckblatt mit Projekttitel und Name des Verfassers sowie Projektbetreuers, Inhaltsverzeichnis, Abbildungsverzeichnis, Glossar, Quellenverzeichnis, Kundendokumentation und Anlagen zählen nicht zu den 15 Seiten der Projektdokumentation.
+%Fremde Quellen einschließlich Recherchen aus dem Internet sind deutlich zu kennzeichnen.
+%Alle relevanten Inhalte der betrieblichen Projektarbeit müssen als Inhalt der Projektdokumentation vorhanden sein.
+%Vertrauliche oder datenschutzrelevante Daten sind als solche zu kennzeichnen. Sofern es aus datenschutzrechtlichen Gründen erforderlich ist, können Teile der Informationen durch Schwärzen etc. unkenntlich gemacht werden.
+
+%Uniforme Zeitform: Präteritum, muss noch umgesetzt werden: momentan noch unordentlich
+
+\documentclass[a4paper,11pt]{report}  % Schriftgröße auf 11pt geändert
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{acronym}
+\usepackage{glossaries}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{ragged2e}
+\usepackage{lipsum}
+\usepackage{hyperref}
+\usepackage{tocloft}
+\usepackage{array}
+\usepackage{float}
+\usepackage[table]{xcolor}
+\usepackage{pgfgantt}
+\usepackage{pdfpages}
+\usepackage{csquotes}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec} % Paket für Überschriften-Formatierung
+\graphicspath{ {./img/} }
+
+% Schriftarten Arial oder Tahoma festlegen
+\usepackage{helvet}  % Für Arial
+\renewcommand{\familydefault}{\sfdefault} % Sans-serif als Standard (Arial ähnlich)
+
+% Alternativ für Tahoma, falls verfügbar:
+%\usepackage{tgheros}  % Tahoma-ähnliche Schrift
+
+\usepackage[style=numeric-comp, backend=biber, citestyle=numeric]{biblatex}
+
+\addbibresource{literature.bib}
+\makenoidxglossaries
+
+% Layout anpassen nach DIN 5008
+\geometry{a4paper, left=2.5cm, right=2cm, top=2.5cm, bottom=2cm, includeheadfoot}
+
+% Zeilenabstand auf 1,3 setzen
+\setstretch{1.3}
+
+% Kopf- und Fußzeilen konfigurieren
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\fancyhead[R]{\chaptername\ \thechapter\ --\ \chaptermark}
+
+
+% Überschriften anpassen
+\titleformat{\chapter}[hang]{\large\bfseries}{\thechapter}{1em}{}
+\titleformat{\section}{\normalsize\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\small\bfseries}{\thesubsection}{1em}{}
+
+% Zeilenumbrüche verbessern
+
+\sloppy                     % Flexible Zeilenumbrüche
+\setlength{\emergencystretch}{3em}  % Erhöht Toleranz für lange Zeilen
+\setlength{\headheight}{13.6pt} % Adjust header height
+\addtolength{\topmargin}{-1.6pt} % Compensate for increased header height
+
+% Acronyms und Glossaries
+\input{Projektdokumentation/acronyms}
+
+% Definition des Kopfzeilenstils für die Verzeichnissesiten
+\fancypagestyle{plain}{
+    \fancyhead[R]{\chaptername\ \thechapter\ --\ \nouppercase \leftmark}
+    \fancyhead[L]{\nouppercase}
+    \fancyfoot[C]{\thepage}
+}
+
+\begin{document}
+
+% Titelblatt
+\begin{titlepage}
+    \centering
+    {\includegraphics[width=7cm]{Projektdokumentation/img/ihk-logo.png}}\\[1em]
+    {\large Abschlussprüfung Winter 2024}\\[0.5em]
+    {\large Fachinformatiker für Systemintegration}\\[2em]
+    {Dokumentation zur betrieblichen Projektarbeit}\\[2.5em]
+
+    {\Large \textbf{Einführung der Self-Service-Passwortvergabe zur Ersetzung des PIN-Brief-Verfahrens bei der Erstanmeldung von Nutzern} }\\ [3em]
+    {\normalsize {Abgabedatum: Frakfurt a.M., den 11.12.2024}}\\[2em]
+    {\normalsize \textbf{Prüfungsbewerber:}}\\
+    {\normalsize {Voller Name }}\\
+    Adresse\\
+    Adresse \\[2em]
+    {\normalsize \textbf{Ausbildungsbetrieb: }}\\
+    Firma\\
+    Adresse
+     Adresse \\[3em]
+    {\includegraphics[width=5cm]{Projektdokumentation/img/testing.jpg}}\\[2em]
+
+\end{titlepage}
+
+\includepdf[pages={1}]{persoenliche-erklaerung-data.pdf}
+
+% Inhaltsverzeichnis 
+\newpage
+\pagenumbering{Roman} 
+\tableofcontents
+
+% Abbildungsverzeichnis
+\newpage
+\pagestyle{plain}
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+
+% Tabellenverzeichnis
+\newpage
+\pagestyle{plain}
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\listoftables
+
+% Abkürzungsverzeichnis
+\newpage
+\pagestyle{plain}
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+\printnoidxglossary[type=\acronymtype,title=Abkürzungsverzeichnis]
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% Kapitel einbinden
+\input{Projektdokumentation/content/einleitung}
+\input{Projektdokumentation/content/projektbeschreibung}
+\input{Projektdokumentation/content/analyse}
+\input{Projektdokumentation/content/projektplanung}
+\input{Projektdokumentation/content/realisierung}
+\input{Projektdokumentation/content/projektabschluss}
+
+\newpage
+\pagenumbering{Roman} 
+\setcounter{page}{6}
+\input{Projektdokumentation/content/anlagen}
+
+% Nummerierung in Buchstaben ändern
+\setcounter{chapter}{0} % Kapitelzähler zurücksetzen
+\renewcommand{\thechapter}{\Alph{chapter}}
+
+% Literaturverzeichnis
+\newpage
+\pagestyle{plain}
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\printbibliography
+
+\end{document}
